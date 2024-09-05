@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="tyyli1.css" type="text/css">
+</head>
+<body>
+    <header id="main-header">
+        <nav>
+            <a href="index.html">Versio 1</a>
+        </nav>
+        <hr>
+        <h1 id="main-header-title">Kaverilista</h1>
+    </header>
+
+    <div class="container">
+        <div id="main">
+            <h2>Lisää kaveri</h2>
+            <p>Voit poistaa kaverin klikkaamalla nimeä listassa.</p>
+            <form name="formNewFriend">
+
+                <input type="text">
+                <input type="submit" value="Lisää">
+                <input type="reset">
+            </form>
+
+            <ol id="kaveriLista" class="kaveri-Lista">
+
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        let lomake = document.forms['formNewFriend'];
+        let kaveriLista = document.getElementById('kaveriLista');
+        lomake.addEventListener('submit', uusiListaElementti)
+        kaveriLista.addEventListener('click', iteminKlikkaus)
+        function uusiListaElementti(event) {
+            event.preventDefault()
+            let elementinNimi = document.querySelector('#main input[type="text"]').value;
+            if(elementinNimi.length < 1) {
+                alert('Liian lyhyt nimi');
+                return
+            }
+
+            let uusiElementti = document.createElement('li')
+            let uusiElementtiTeksti = document.createTextNode(elementinNimi)
+            uusiElementti.appendChild(uusiElementtiTeksti)
+            uusiElementti.className = 'list-item';
+            document.querySelector('#kaveriLista').appendChild(uusiElementti)
+        }
+
+        function iteminKlikkaus(event) {
+            console.log('Klikkasit listaa')
+            console.log(event.target)
+            let parentti = event.target.parentElement;
+            poistaItem(event.target, parentti)
+        }
+
+        function poistaItem(poistaItem, elementinParentti) {
+            elementinParentti.removeChild(poistaItem);
+        }
+    </script>
+</body>
+</html>
